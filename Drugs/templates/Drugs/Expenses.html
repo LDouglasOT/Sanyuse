@@ -1,0 +1,109 @@
+
+
+{% extends 'Drugs/Base.html'%}
+{% block content%}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-8">
+     <br>
+     
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for expense.." title="Type in a name">
+
+<table id="myTable">
+  <tr class="header">
+    <th style="width:50%;">Reason</th>
+    <th style="width:40%;">Date</th>
+    <th style="width:40%;">Amount spent</th>
+    <th style="width:10%;">Actions</th>
+  </tr>
+  {% for expense in expenses%}
+  <tr>
+    <td value="{{drug.DrugName}}">{{expense.Reason}}</td>
+    <td value="{{drug.DrugName}}">{{expense.Date}}</td>
+    <td value="{{drug.DrugName}}">UGX {{expense.Amount}}</td> 
+    <td class="d-flex justify-content-between" id="Add-item"><button type="button" class="btn btn-danger">Delete</button></td>
+  </tr>
+
+<form method="post" action="submit">
+<form>
+
+
+  {% endfor %}
+
+</table>
+<br>
+<div>
+  <button type="button" class="btn btn-success float-left" data-bs-toggle="modal" data-bs-target="#exampleModal">New Expense</button>
+ </div>
+ <br>
+<div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <form method="POST" action="{% url 'expenses' %}">
+        {% csrf_token %}
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Not enabled yet</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{form.as_p}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <input class="btn btn-success" type="submit"></input>
+            </div>
+          </div>
+        </div>
+
+  </form>
+  </div>
+
+
+    <div class="card">
+        <div class="card-body">
+          <h5>Total Expenses Cost for :UGX {{TotalExpenses}}</h5>
+        </div>
+      </div>
+</div>
+
+    </div>
+  </div>
+</div>
+<div>
+
+</div>
+{% endblock %}
+<script>
+
+// $( "#Add-item" ).click(function() {
+//   alert( "Handler for .click() called." );
+// });
+
+
+
+
+$('table').DataTable();
+// function myFunction() {
+//   // Declare variables
+//   var input, filter, table, tr, td, i, txtValue;
+//   input = document.getElementById("myInput");
+//   filter = input.value.toUpperCase();
+//   table = document.getElementById("myTable");
+//   tr = table.getElementsByTagName("tr");
+
+//   // Loop through all table rows, and hide those who don't match the search query
+//   for (i = 0; i < tr.length; i++) {
+//     td = tr[i].getElementsByTagName("td")[0];
+//     if (td) {
+//       txtValue = td.textContent || td.innerText;
+//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//         tr[i].style.display = "";
+//       } else {
+//         tr[i].style.display = "none";
+//       }
+//     }
+//   }
+// }
+</script>
