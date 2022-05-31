@@ -90,7 +90,13 @@ class Appointment(models.Model):
     Person=models.ForeignKey(Employee, on_delete=models.CASCADE)
 
 
-
+class Drug_Order(models.Model):
+    Drug_Order =models.CharField(max_length=200,blank=True,null=False)
+    Drug_price=models.IntegerField(null=False)
+    ClientID=models.CharField(max_length=15,blank=False)
+    client_name=models.CharField(max_length=200,blank=True,null=True)
+    def __str__(self):
+        return self.Drug_Order
 
 
 

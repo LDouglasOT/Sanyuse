@@ -19,8 +19,6 @@ from Drugs import views
 
 
 urlpatterns = [
-    path('',views.drugs,name="Home"),
-    path('Patient/',views.Patient,name="Patient"),
-    path('expenses/',views.get_Expense,name="expenses"),
-    path('admin/', admin.site.urls,name="admin")
+    path('admin/', admin.site.urls,name="admin"),
+    path('',include('Drugs.urls'))
 ]

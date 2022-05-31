@@ -489,3 +489,9 @@ table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
   bottom: .5em;
 }
+
+.input_container input{
+  border: 1px solid yellow !important;
+  border-radius: 10px;
+  
+}

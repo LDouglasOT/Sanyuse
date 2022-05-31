@@ -1,0 +1,21 @@
+{% block content%}
+<style>
+    img{
+       width: 800px;
+    }
+ </style>
+
+{% if messages%}
+{% for message in messages%}
+<div class="text-center mt-5">{{message}}</div>
+{%endfor%}
+{%endif%}
+ <form method="post" class="text-center">{%csrf_token%}
+    <button class="p-3 btn btnsuccess">Take A Screenshot</button>
+ </form>
+ {% if img%}
+<div class="text-center p-5 mt-5 container border shadowsm">
+    <img src="http://127.0.0.1:8000/media/{{img}}" class= "img-fluid">
+ </div>
+ {%endif%}
+{% endblock %}

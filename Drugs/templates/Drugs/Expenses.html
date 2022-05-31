@@ -1,8 +1,24 @@
-
-
 {% extends 'Drugs/Base.html'%}
+{% load crispy_forms_tags %}
 {% block content%}
 <div class="container">
+  <div class="border">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="d-flex justify-content-around align-items-center">
+        <div class="form-group">
+          <h6>Reason</h6>
+          <div>{{form.Reason}}</div>
+        </div>
+      <div>
+        <h6>Amount</h6>
+        <div>{{form.Amount}}</div>
+      </div>
+      
+      <button type="submit" class="btn btn-success" value="Submit">submit Expense</button>
+      </div>
+    </form>
+  </div>
   <div class="row">
     <div class="col-xs-8">
      <br>
@@ -18,54 +34,26 @@
   </tr>
   {% for expense in expenses%}
   <tr>
+  
     <td value="{{drug.DrugName}}">{{expense.Reason}}</td>
     <td value="{{drug.DrugName}}">{{expense.Date}}</td>
     <td value="{{drug.DrugName}}">UGX {{expense.Amount}}</td> 
-    <td class="d-flex justify-content-between" id="Add-item"><button type="button" class="btn btn-danger">Delete</button></td>
-  </tr>
+    <td class="d-flex justify-content-between" id="Add-item"><a type="button" class="btn btn-danger" href="/delete_form/{{expense.Reason}}">Delete</a></td>
 
-<form method="post" action="submit">
-<form>
+  </tr>
 
 
   {% endfor %}
 
 </table>
 <br>
-<div>
-  <button type="button" class="btn btn-success float-left" data-bs-toggle="modal" data-bs-target="#exampleModal">New Expense</button>
- </div>
- <br>
-<div>
-
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <form method="POST" action="{% url 'expenses' %}">
-        {% csrf_token %}
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Not enabled yet</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {{form.as_p}}
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <input class="btn btn-success" type="submit"></input>
-            </div>
-          </div>
-        </div>
-
-  </form>
-  </div>
-
-
+{% if TotalExpenses %}
     <div class="card">
         <div class="card-body">
           <h5>Total Expenses Cost for :UGX {{TotalExpenses}}</h5>
         </div>
       </div>
+{% endif %}      
 </div>
 
     </div>
@@ -74,6 +62,8 @@
 <div>
 
 </div>
+
+
 {% endblock %}
 <script>
 

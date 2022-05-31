@@ -15,23 +15,22 @@
 
 <table id="myTable">
   <tr class="header">
-    <th style="width:60%;">Drug Name</th>
-    <th style="width:40%;">Quantity</th>
-    <th style="width:40%;">Price</th>
-    <th style="width:40%;">Action</th>
+   
+    <th style="width:50%;">Drug Name</th>
+    <th style="width:10%;">Quantity</th>
+    <th style="width:20%;">Price</th>
+    <th style="width:5%;">select</th>
   </tr>
   {% for drug in Drugs%}
   <tr>
-    <td value="{{drug.DrugName}}">{{drug.DrugName}}</td>
+   <td value="{{drug.DrugName}}">{{drug.DrugName}}</td>
     <td value="{{drug.DrugName}}">{{drug.Quantity}}</td>
     <td value="{{drug.DrugName}}">{{drug.Cost}}</td> 
-    <td class="d-flex justify-content-between" id="Add-item"><button type="button" class="btn btn-success" onClick="AddArray({drug})" >Add</button> <button type="button" class="btn btn-danger">Delete</button></td>
+    <td class="d-flex justify-content-between" id="Add-item"><a type="button" class="btn btn-success" href="#" title="Add">Add</a></td>
   </tr>
 
 <form method="post" action="submit">
 <form>
-
-
   {% endfor %}
 </table>
 
@@ -43,35 +42,10 @@
 
 </div>
 {% endblock %}
+
 <script>
+$(document).ready(function ready() {
+$('#submit').click(function)
 
-// $( "#Add-item" ).click(function() {
-//   alert( "Handler for .click() called." );
-// });
-
-
-
-
-$('table').DataTable();
-// function myFunction() {
-//   // Declare variables
-//   var input, filter, table, tr, td, i, txtValue;
-//   input = document.getElementById("myInput");
-//   filter = input.value.toUpperCase();
-//   table = document.getElementById("myTable");
-//   tr = table.getElementsByTagName("tr");
-
-//   // Loop through all table rows, and hide those who don't match the search query
-//   for (i = 0; i < tr.length; i++) {
-//     td = tr[i].getElementsByTagName("td")[0];
-//     if (td) {
-//       txtValue = td.textContent || td.innerText;
-//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//         tr[i].style.display = "";
-//       } else {
-//         tr[i].style.display = "none";
-//       }
-//     }
-//   }
-// }
+})
 </script>

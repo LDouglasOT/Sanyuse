@@ -3,17 +3,20 @@ from Drugs.models import *
 from django.http import HttpResponse
 import datetime 
 from . import views
-from .form import Expensesform
+from .form import *
+from django.shortcuts import redirect
+
 
 # Create your views here.
-def get_Employees(request):
+def get_Employees_view(request):
     Employees=employee.objects.all()
     context={
         "Employees":Employees
     }
     return render(request,"",context)
 
-def drugs(request):
+def drugs_view(request):
+    form=DrugForm()
     if(request.method=="GET"):
         lists=Drug.objects.all()
         TotalCost=0
@@ -29,26 +32,35 @@ def drugs(request):
     context = {
             "Profit":ExpectedProfit,
             "TotalCost":TotalCost,
-            "Drugs":lists
+            "Drugs":lists,
+            "form":form
     }
     return render(request,"Drugs/Druglist.html",context)
 
 
-def get_Expense(request):
+def get_Expense_view(request):
     form=Expensesform()
+    print(request)
     TotalExpenses=0
-    listings = Expense.objects.all()
-    if(request.method == "GET"):
+    listings = Expense.objects.filter(Date=datetime.date.today())
+    if request.method == "GET":
         for expense in listings:
-            TotalExpenses+=expense.Amount
-        
-    
-    if(request.method == "POST"):
-        form =Expensesform(request.POST)
-        print(form)
+            TotalExpenses += expense.Amount
+    if request.method == "POST":
+        print("got")
+        form = Expensesform(request.POST)
         if form.is_valid():
             form.save()
-            listings.append(form.cleaned_data)
+            listings = Expense.objects.filter(Date=datetime.date.today())
+            for expense in listings:
+                TotalExpenses += expense.Amount
+            context={
+                "expenses":listings,
+                "TotalExpenses":TotalExpenses,
+                'form':form
+                    }
+            return render(request,"Drugs/Expenses.html",context)
+
     context={
         "expenses":listings,
         "TotalExpenses":TotalExpenses,
@@ -56,7 +68,7 @@ def get_Expense(request):
     }
     return render(request,"Drugs/Expenses.html",context)
 
-def Patient(request):
+def Patient_view(request):
     if(request.method=="GET"):
 
         patientqs=views.models.Patients.objects.all()
@@ -64,6 +76,7 @@ def Patient(request):
         Patients=request.data
         if(Patients.is_valid()):
             Patient.save()
+            
 
     context={
         "Patients":patientqs,
@@ -71,3 +84,27 @@ def Patient(request):
     }
     
     return render(request,"Drugs/Patients.html",context)
+
+def delete_expense(request,slug):
+    form=Expensesform()
+    if slug:
+        item=Expense.objects.filter(Reason=slug)
+        item.delete()
+        TotalExpenses=0
+        listings = Expense.objects.filter(Date=datetime.date.today())
+        for expense in listings:
+            TotalExpenses += expense.Amount
+        context={
+                "expenses":listings,
+                "TotalExpenses":TotalExpenses,
+                'form':form
+                }
+        return redirect("/expenses")
+    else:
+        return
+def new_order(request,slug):
+    if slug:
+        selected=Drug.objects.filter(DrugName=slug)
+        print(selected)
+        return redirect("Drugs/Expenses.html")
+
