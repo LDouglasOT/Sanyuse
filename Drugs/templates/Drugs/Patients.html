@@ -4,10 +4,6 @@
 {% extends 'Drugs/Base.html'%}
 {% block content%}
 <div class="d-flex justify-content-around">
-<button type="button" class="btn btn-dark">Dark</button>
-<h2>Sanyu Hospital Patients Directory</h2>
-<button type="button" class="btn btn-dark">Dark</button>
-</div>
 <div class="container">
   <div class="row">
     <div class="col-xs-8">
@@ -16,36 +12,25 @@
 
 <table id="myTable">
   <tr class="header">
-    <th style="width:50%;">Reason</th>
-    <th style="width:40%;">Date</th>
-    <th style="width:40%;">Amount spent</th>
+    <th style="width:35%;">Patient Name</th>
+    <th style="width:25%;">Residence</th>
+    <th style="width:30%;">Phone</th>
     <th style="width:10%;">Actions</th>
   </tr>
   {% for Patient in Patients%}
   <tr>
     <td value="{{drug.DrugName}}">{{Patients.Name}}</td>
     <td value="{{drug.DrugName}}">{{Patients.Residence}}</td>
-    <td value="{{drug.DrugName}}">UGX {{Patients.Phone}}</td> 
+    <td value="{{drug.DrugName}}">{{Patients.Phone}}</td> 
     <td class="d-flex justify-content-between" id="Add-item"><button type="button" class="btn btn-danger">Delete</button></td>
   </tr>
-
 <form method="post" action="submit">
 <form>
-
-
-  {% endfor %}
-
+{% endfor %}
 </table>
 <br>
 <div>
-
-    <div class="card">
-        <div class="card-body">
-          <h5>Total Expenses Cost for :UGX {{TotalExpenses}}</h5>
-        </div>
-      </div>
 </div>
-
     </div>
   </div>
 </div>

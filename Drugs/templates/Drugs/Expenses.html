@@ -7,12 +7,10 @@
       {% csrf_token %}
       <div class="d-flex justify-content-around align-items-center">
         <div class="form-group">
-          <h6>Reason</h6>
-          <div>{{form.Reason}}</div>
+          <div>{{form.Reason|as_crispy_field}}</div>
         </div>
       <div>
-        <h6>Amount</h6>
-        <div>{{form.Amount}}</div>
+        <div>{{form.Amount|as_crispy_field}}</div>
       </div>
       
       <button type="submit" class="btn btn-success" value="Submit">submit Expense</button>

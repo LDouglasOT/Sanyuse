@@ -40,14 +40,12 @@ def drugs_view(request):
 
 def get_Expense_view(request):
     form=Expensesform()
-    print(request)
     TotalExpenses=0
     listings = Expense.objects.filter(Date=datetime.date.today())
     if request.method == "GET":
         for expense in listings:
             TotalExpenses += expense.Amount
     if request.method == "POST":
-        print("got")
         form = Expensesform(request.POST)
         if form.is_valid():
             form.save()
@@ -68,19 +66,18 @@ def get_Expense_view(request):
     }
     return render(request,"Drugs/Expenses.html",context)
 
-def Patient_view(request):
+def _view(request):
     if(request.method=="GET"):
-
-        patientqs=views.models.Patients.objects.all()
+      qs=Patients.objects.all()
     if(request.method=="POST"):
-        Patients=request.data
-        if(Patients.is_valid()):
+        Patient=request.data
+        if(Patient.is_valid()):
             Patient.save()
             
 
     context={
-        "Patients":patientqs,
-        "Count":patientqs.count 
+        "Patients":qs,
+        "Count":qs.count 
     }
     
     return render(request,"Drugs/Patients.html",context)
@@ -108,3 +105,6 @@ def new_order(request,slug):
         print(selected)
         return redirect("Drugs/Expenses.html")
 
+def dashboard_view(request):
+
+       return render(request,"Drugs/Dashboard.html")
